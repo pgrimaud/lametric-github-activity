@@ -10,6 +10,8 @@ use Github\Client;
 
 class Api
 {
+    private const MAX_PIXEL = 8;
+
     public function __construct(private Client $githubClient)
     {
     }
@@ -32,7 +34,7 @@ class Api
             }
         QUERY;
 
-        $dateFrom = new \DateTime('-38 days');
+        $dateFrom = new \DateTime('-36 days');
         $dateTo = new \DateTime();
 
         // @phpstan-ignore-next-line
@@ -49,17 +51,42 @@ class Api
     private function mapData(array $data = []): FrameCollection
     {
         $activity = [];
+        $weightedActivity = [];
+
+        $max = 0;
+        $min = $data[0]['contributionDays'][0]['contributionCount'];
 
         foreach ($data as $week) {
             foreach ($week['contributionDays'] as $day) {
+                if ($day['contributionCount'] > $max) {
+                    $max = $day['contributionCount'];
+                }
+
+                if ($day['contributionCount'] < $min) {
+                    $min = $day['contributionCount'];
+                }
+
                 $activity[] = $day['contributionCount'];
             }
+        }
+
+        $difference = $max - $min;
+
+        foreach ($activity as $item) {
+            $weightedItem = self::MAX_PIXEL - 1;
+            for ($i = self::MAX_PIXEL; $i > 0; $i--) {
+                if ($item < $difference / $i) {
+                    $weightedItem = self::MAX_PIXEL - $i;
+                    break;
+                }
+            }
+            $weightedActivity[] = $weightedItem;
         }
 
         $frameCollection = new FrameCollection();
 
         $frame = new Frame();
-        $frame->setChartData($activity);
+        $frame->setChartData($weightedActivity);
 
         $frameCollection->addFrame($frame);
 
