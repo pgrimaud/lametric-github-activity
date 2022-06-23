@@ -32,7 +32,7 @@ class Api
             }
         QUERY;
 
-        $dateFrom = new \DateTime('-30 days');
+        $dateFrom = new \DateTime('-38 days');
         $dateTo = new \DateTime();
 
         // @phpstan-ignore-next-line
