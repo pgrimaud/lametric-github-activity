@@ -35,6 +35,7 @@ class Api
         $dateFrom = new \DateTime('-30 days');
         $dateTo = new \DateTime();
 
+        // @phpstan-ignore-next-line
         $result = $this->githubClient->api('graphql')->execute($query, [
             'login' => $parameters['username'],
             'dateFrom' => $dateFrom->format('Y-m-d\TH:i:sp'),
