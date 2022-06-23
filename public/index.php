@@ -1,8 +1,10 @@
 <?php
 
-use LaMetric\{Api, Response, Validator};
-
-use GuzzleHttp\Client;
+use LaMetric\Api;
+use LaMetric\Response;
+use LaMetric\Validator;
+use Github\AuthMethod;
+use Github\Client;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -17,7 +19,10 @@ try {
     $validator = new Validator($_GET);
     $validator->check($parameters);
 
-    $api    = new Api(new Client(), $credentials);
+    $githubClient = new Client();
+    $githubClient->authenticate($credentials['github_api_key'], null, AuthMethod::ACCESS_TOKEN);
+
+    $api    = new Api($githubClient);
     $frames = $api->fetchData($validator->getData());
 
     echo $response->printData($frames);

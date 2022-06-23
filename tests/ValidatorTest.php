@@ -6,7 +6,8 @@ namespace LaMetric\tests;
 
 use LaMetric\Field;
 use LaMetric\Validator;
-use LaMetric\Exception\{InvalidArgumentException, MissingArgumentException};
+use LaMetric\Exception\InvalidArgumentException;
+use LaMetric\Exception\MissingArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase

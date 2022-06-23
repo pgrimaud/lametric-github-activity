@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace LaMetric;
 
-use LaMetric\Exception\{InvalidArgumentException, MissingArgumentException};
+use LaMetric\Exception\InvalidArgumentException;
+use LaMetric\Exception\MissingArgumentException;
 
 class Validator
 {

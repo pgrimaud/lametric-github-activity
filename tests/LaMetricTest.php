@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace LaMetric\tests;
 
 use GuzzleHttp\Client;
-use LaMetric\{Api, Response, Validator};
+use LaMetric\Api;
+use LaMetric\Response;
+use LaMetric\Validator;
 use PHPUnit\Framework\TestCase;
 
 class LaMetricTest extends TestCase

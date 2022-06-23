@@ -6,45 +6,15 @@ namespace LaMetric\Response;
 
 class Frame
 {
-    /**
-     * @var string
-     */
-    private $text = '';
+    private array $chartData = [];
 
-    /**
-     * @var string
-     */
-    private $icon = '';
-
-    /**
-     * @return string
-     */
-    public function getText(): string
+    public function getChartData(): array
     {
-        return $this->text;
+        return $this->chartData;
     }
 
-    /**
-     * @param string $text
-     */
-    public function setText(string $text): void
+    public function setChartData(array $chartData): void
     {
-        $this->text = $text;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIcon(): string
-    {
-        return $this->icon;
-    }
-
-    /**
-     * @param string $icon
-     */
-    public function setIcon(string $icon): void
-    {
-        $this->icon = $icon;
+        $this->chartData = $chartData;
     }
 }

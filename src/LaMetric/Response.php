@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace LaMetric;
 
-use LaMetric\Response\{Frame, FrameCollection};
+use LaMetric\Response\Frame;
+use LaMetric\Response\FrameCollection;
 
 class Response
 {
@@ -51,8 +52,7 @@ class Response
         foreach ($frameCollection->getFrames() as $key => $frame) {
             $response['frames'][] = [
                 'index' => $key,
-                'icon'  => $frame->getIcon() !== '' ? $frame->getIcon() : null,
-                'text'  => $frame->getText(),
+                'chartData'  => $frame->getChartData(),
             ];
         }
 

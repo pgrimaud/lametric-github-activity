@@ -4,52 +4,61 @@ declare(strict_types=1);
 
 namespace LaMetric;
 
-use GuzzleHttp\Client;
-use LaMetric\Response\{Frame, FrameCollection};
+use LaMetric\Response\Frame;
+use LaMetric\Response\FrameCollection;
+use Github\Client;
 
 class Api
 {
-    public function __construct(private Client $client, private array $credentials = [])
+    public function __construct(private Client $githubClient)
     {
     }
 
-    /**
-     * @param array $parameters
-     *
-     * @return FrameCollection
-     */
     public function fetchData(array $parameters = []): FrameCollection
     {
-        /**
-         * You can call whatever API you want and extract data as array or object
-         *
-         * object $this->client (Guzzle HTTP) is available to make curl requests
-         * array $this->credentials contains sensitive data
-         * array $parameters (credentials) can contain sensitive data
-         *
-         * Here for example, we will return IP of user
-         */
+        $query = <<<'QUERY'
+            query userInfo($login: String!, $dateFrom: DateTime!, $dateTo: DateTime!) {
+                user(login: $login) {
+                  contributionsCollection(from: $dateFrom, to: $dateTo) {
+                      contributionCalendar {
+                      weeks {
+                        contributionDays {
+                          contributionCount
+                        }
+                      }
+                    }
+                  }
+                }
+            }
+        QUERY;
 
-        return $this->mapData([
-            'ip' => $_SERVER['REMOTE_HOST'] ?? 'UNKNOWN',
+        $dateFrom = new \DateTime('-30 days');
+        $dateTo = new \DateTime();
+
+        $result = $this->githubClient->api('graphql')->execute($query, [
+            'login' => $parameters['username'],
+            'dateFrom' => $dateFrom->format('Y-m-d\TH:i:sp'),
+            'dateTo' => $dateTo->format('Y-m-d\TH:i:sp')
         ]);
+
+        return $this->mapData($result['data']['user']['contributionsCollection']['contributionCalendar']['weeks']);
     }
 
-    /**
-     * @param array $data
-     *
-     * @return FrameCollection
-     */
+
     private function mapData(array $data = []): FrameCollection
     {
+        $activity = [];
+
+        foreach ($data as $week) {
+            foreach ($week['contributionDays'] as $day) {
+                $activity[] = $day['contributionCount'];
+            }
+        }
+
         $frameCollection = new FrameCollection();
 
-        /**
-         * Transform data as FrameCollection and Frame
-         */
         $frame = new Frame();
-        $frame->setText($data['ip']);
-        $frame->setIcon('');
+        $frame->setChartData($activity);
 
         $frameCollection->addFrame($frame);
 
