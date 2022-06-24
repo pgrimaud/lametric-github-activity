@@ -10,14 +10,6 @@ Based on the [GitHub API](https://docs.github.com/en/rest).
 
 Insert your github nickname on the application and it will display on your LaMetric your GitHub contribution history.
 
-# Donations 🙏
-
-If you like or use this app, please share your love by starring this repository, follow [@pgrimaud](https://github.com/pgrimaud) / [@yannisobert](https://github.com/yannisobert) or make a donation. 🙏💓
-
-- **BTC** : `bc1qn5thzc2h376c4zrv6phten02p6mtj60j3ujm86`
-- **ETH / ERC20** : `0xCc070742bebB01A43B12E123C9c989E3E4d4E913`
-- **BSC / BEP20** : `0xE5035aD19843A2d8dF885511BC79d7182047b80`
-
 # Authors
 
 - Pierre Grimaud [@pgrimaud](https://github.com/pgrimaud)
