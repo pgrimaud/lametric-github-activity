@@ -5,8 +5,6 @@
 
 Easily display your contributions of your GitHub account.
 
-![image](https://media.discordapp.net/attachments/891952876379832340/989811504087969802/unknown.png)
-
 Based on the [GitHub API](https://docs.github.com/en/rest).
 
 # How to connect your GitHub account on the app?
