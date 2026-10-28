@@ -1,5 +1,8 @@
 # GitHub Activity for LaMetric
 
+> [!CAUTION]
+> READ-ONLY : APP MIGRATED TO https://github.com/pgrimaud/lumiere
+
 Easily display your contributions of your GitHub account.
 
 ![image](https://media.discordapp.net/attachments/891952876379832340/989811504087969802/unknown.png)
